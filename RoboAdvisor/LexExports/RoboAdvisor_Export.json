@@ -1,0 +1,207 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0",
+    "importType": "LEX",
+    "importFormat": "JSON"
+  },
+  "resource": {
+    "name": "RoboAdvisor",
+    "version": "2",
+    "intents": [
+      {
+        "rejectionStatement": {
+          "messages": [
+            {
+              "contentType": "PlainText",
+              "content": "I will be pleased to assist you in the future"
+            }
+          ]
+        },
+        "name": "RecommendPortfolio",
+        "version": "6",
+        "fulfillmentActivity": {
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-west-2:632579587068:function:recommendPortfolio",
+            "messageVersion": "1.0"
+          },
+          "type": "CodeHook"
+        },
+        "sampleUtterances": [
+          "I want to save money for my retirement",
+          "I'm {age} and I would like to invest for my retirement",
+          "I'm {age} and I want to invest for my retirement",
+          "I want the best option to invest for my retirement",
+          "I'm worried about my retirement",
+          "I want to invest for my retirement",
+          "I would like to invest for my retirement",
+          "By the age of {age} I want to have enough to retire",
+          "I want to significantly boost my savings for my retirement"
+        ],
+        "slots": [
+          {
+            "sampleUtterances": [],
+            "slotType": "AMAZON.NUMBER",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "How old are you?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 2,
+            "name": "age"
+          },
+          {
+            "sampleUtterances": [],
+            "slotType": "AMAZON.US_FIRST_NAME",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Thank you for trusting me to help, could you please give me your name?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 1,
+            "name": "firstName"
+          },
+          {
+            "sampleUtterances": [],
+            "slotType": "AMAZON.NUMBER",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "How much do you want to invest?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 3,
+            "name": "investmentAmount"
+          },
+          {
+            "sampleUtterances": [],
+            "slotType": "riskLevel",
+            "slotTypeVersion": "3",
+            "obfuscationSetting": "NONE",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "What level of investment risk are you willing to take?"
+                }
+              ],
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"https://cdn0.iconfinder.com/data/icons/city-elements-18/64/bank-money-business-banking-architecture_and_city-finance-savings-building-256.png\",\"subTitle\":\"No risk at all\",\"title\":\"None\",\"buttons\":[{\"text\":\"None / Zero / Zip\",\"value\":\"Zero\"}]},{\"imageUrl\":\"https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/money_box-256.png\",\"subTitle\":\"Just a bit of risk\",\"title\":\"Very Low or Low\",\"buttons\":[{\"text\":\"Very Low\",\"value\":\"Very Low\"},{\"text\":\"Low\",\"value\":\"Low\"}]},{\"imageUrl\":\"https://cdn2.iconfinder.com/data/icons/sale-and-discount/32/Sale_and_Discount-01-256.png\",\"subTitle\":\"Let's start getting wild\",\"title\":\"Medium\",\"buttons\":[{\"text\":\"Some / Medium\",\"value\":\"Medium\"}]},{\"imageUrl\":\"https://cdn2.iconfinder.com/data/icons/accounting-auditor/64/AccountingAuditor_10-256.png\",\"subTitle\":\"I have no fear\",\"title\":\"High\",\"buttons\":[{\"text\":\"Very high\",\"value\":\"Very high\"},{\"text\":\"High\",\"value\":\"High\"}]}]}",
+              "maxAttempts": 2
+            },
+            "priority": 4,
+            "name": "riskLevel"
+          }
+        ],
+        "confirmationPrompt": {
+          "messages": [
+            {
+              "contentType": "PlainText",
+              "content": "Would you like me to search for the best investment portfolio for you now?"
+            }
+          ],
+          "maxAttempts": 3
+        },
+        "dialogCodeHook": {
+          "uri": "arn:aws:lambda:us-west-2:632579587068:function:recommendPortfolio",
+          "messageVersion": "1.0"
+        }
+      }
+    ],
+    "slotTypes": [
+      {
+        "description": "Level of risk the user is willing to bear/take",
+        "name": "riskLevel",
+        "version": "3",
+        "enumerationValues": [
+          {
+            "value": "High",
+            "synonyms": [
+              "Lots",
+              "Plenty"
+            ]
+          },
+          {
+            "value": "Very Low",
+            "synonyms": [
+              "tiny",
+              "teeny",
+              "minimal"
+            ]
+          },
+          {
+            "value": "Zero",
+            "synonyms": [
+              "None",
+              "Zip"
+            ]
+          },
+          {
+            "value": "Very high",
+            "synonyms": [
+              "all in",
+              "Max",
+              "uber",
+              "maximum"
+            ]
+          },
+          {
+            "value": "Low",
+            "synonyms": [
+              "small",
+              "low"
+            ]
+          },
+          {
+            "value": "Medium",
+            "synonyms": [
+              "Some",
+              "Moderate",
+              "Acceptable"
+            ]
+          }
+        ],
+        "valueSelectionStrategy": "TOP_RESOLUTION"
+      }
+    ],
+    "voiceId": "Salli",
+    "childDirected": false,
+    "locale": "en-US",
+    "idleSessionTTLInSeconds": 300,
+    "clarificationPrompt": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, can you please repeat that?"
+        }
+      ],
+      "maxAttempts": 2
+    },
+    "abortStatement": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, I could not understand. Goodbye."
+        }
+      ]
+    },
+    "detectSentiment": false,
+    "enableModelImprovements": false
+  }
+}
